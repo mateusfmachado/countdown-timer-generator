@@ -11,6 +11,7 @@ const Anchor = ({ url, label }) => (
 
 export default ( ) => (
     <div className="Footer">
+        <hr />
         <small>
         &copy;{new Date().getFullYear()}
         &nbsp;-&nbsp;

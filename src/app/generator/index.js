@@ -8,13 +8,37 @@ class Generator extends Component {
     constructor(props){
         super();
         this.state = {
-            options: {}
+            options: {
+                fontWeight: 300,
+                fontColor: "#efefef",
+                fontSize: 3,
+                textAlign: 'center',
+                backgroundColorInside: "#111111",
+                backgroundColorOutside: "#222222",
+                trasparencyInside: "ff",
+                trasparencyOutside: "ff",
+
+                paddingOutsideHorizontal: 10,
+                paddingOutsideVertical: 10,
+                paddingInsideHorizontal: 10,
+                paddingInsideVertical: 10,
+
+                date: new Date(new Date().getTime() + 15*24*60*60*1000),
+                hours: 23,
+                minutes: 59,
+                seconds: 59
+            }
         }
     }
 
     onChange(field, text){
         const {options} = this.state;
-        options[field] = text;
+        if(field === 'date'){
+            const data = text.split('-');
+            options[field] = new Date( data[0], data[1]-1, data[2] );
+        } else {
+            options[field] = text;
+        }        
         this.setState({ options });
     }
 

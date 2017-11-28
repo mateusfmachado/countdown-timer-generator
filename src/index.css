@@ -18,8 +18,10 @@ body {
   flex-direction: column;
 }
 
-.horizontal {
-  flex-direction: row;
+@media screen and (max-width: 800px){
+  .horizontal {
+    flex-direction: column;
+  }
 }
 
 .flex-center {
@@ -80,5 +82,4 @@ body {
 .Display {
   margin: 15px 0;
   width: 100%;
-  background-color: #ffffff;
 }

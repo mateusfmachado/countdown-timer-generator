@@ -16,11 +16,10 @@ class Code extends Component {
 
         // TIMER
 
-        const startDay = options.startDay || 15;
-        const startHours = options.startHours || 23;
-        const startMinutes = options.startMinutes || 59;
-        const startSeconds = options.startSeconds || 59;
-        const startMilliseconds = options.startMilliseconds || false;
+        const date = new Date(options.date);
+        const hours = options.hours || 23;
+        const minutes = options.minutes || 59;
+        const seconds = options.seconds || 59;
 
         // OUTSIDE DIV STYLE
 
@@ -33,9 +32,11 @@ class Code extends Component {
 
         const fontSize = (options.fontSize || 1.5)+'em';
         const fontFamily = (options.fontFamily || "Helvetica");
+        const fontWeight = (options.fontWeight || 200);
         const paddingInsideVertical = (options.paddingInsideVertical || 10) + 'px';
         const paddingInsideHorizontal = (options.paddingInsideHorizontal || 10) + 'px';
         const backgroundColorInside =  (options.backgroundColorInside || "#d56");
+        const fontColor = ( options.fontColor || "#111111");
 
         const wrapperStyle = {
             'text-align': textAlign,
@@ -46,53 +47,52 @@ class Code extends Component {
 
         const style = {
             'font-size': fontSize,
+            'color': fontColor,
+            'font-weight': fontWeight,
             'font-family': fontFamily,
             padding: paddingInsideVertical +' '+ paddingInsideHorizontal,
             'background-color': backgroundColorInside
         };
         const styleString = (objToInlineStyle(style));
 
-        const content = (
-                            startDay ? ( 
-                                startDay > 9 ? startDay : '0'+startDay 
-                            ): ''
-                        )+
-                        (
-                            startHours ? ' : '+ ( 
-                                startHours > 9 ? startHours : '0'+startHours 
-                            ): ''
-                        )+
-                        (
-                            startMinutes ? ' : '+ ( 
-                                startMinutes > 9 ? startMinutes : '0'+startMinutes 
-                            ): ''
-                        )+
-                        (
-                            startSeconds ? ' : '+ ( 
-                                startSeconds > 9 ? startSeconds : '0'+startSeconds 
-                            ): ''
-                        )+
-                        (
-                            startMilliseconds ? ' : '+ ( 
-                                startMilliseconds > 9 ? startMilliseconds : '0'+startMilliseconds 
-                            ): ''
-                        );
+        const dataFinal = new Date( date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, seconds );
+        // const today = new Date();
+
+        // const timeDiff = dataFinal.getTime() - today.getTime();
 
         const string = ''+
         '<div>\n'+
         '\t<div style='+wrapperStyleString+'>\n'+
-        '\t\t<span style='+styleString+'>\n'+
+        '\t\t<span style='+styleString+' id="countdown">\n'+
         '\t\t\t'+
-        content+
+        '-- : -- : -- : --'+
         '\n'+
         '\t\t</span>\n'+
         '\t</div>\n'+
+        '<script type="text/javascript">\n'+
+        '\tvar countdown = document.getElementById("countdown");\n'+
+        '\tvar total = new Date('+ dataFinal.getTime() +').getTime() - new Date().getTime();\n'+
+        '\tsetInterval(() => { \n'+
+        '\t\ttotal-=1000;\n'+
+
+        '\t\tvar days = Math.floor(total / (24*60*60*1000)) ;\n'+
+
+        '\t\tvar hours = Math.floor( ( total - (days*24*60*60*1000) ) / (60*60*1000));\n'+
+
+        '\t\tvar minutes = Math.floor( ( total - (days*24*60*60*1000) - (hours*60*60*1000) ) / (60*1000));\n'+
+
+        '\t\tvar seconds = Math.floor( ( total - (days*24*60*60*1000) - (hours*60*60*1000) - (minutes*60*1000) ) / (1000));\n'+
+
+        '\t\tcountdown.innerHTML = (days < 10 ? "0"+days : days) +" : "+(hours < 10 ? "0"+hours : hours)+" : "+(minutes < 10 ? "0"+minutes : minutes)+" : "+(seconds < 10 ? "0"+seconds : seconds);\n'+
+
+        '\t }, 1000);\n'+
+        '</script>\n'+
         '</div>';
 
         return (
 
             <div className="Code container">
-                <h3>Code</h3>
+                <h2>Code</h2>
                 <hr />
                 <textarea
                     className="textarea-code"
