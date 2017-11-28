@@ -102,7 +102,7 @@ class Options extends Component {
 
                         <h3>Count</h3>   
 
-                        <span>Day: </span>
+                        <span>Final Date: </span>
                         <input 
                             type="date" 
                             value={ ( date.getFullYear() + '-' + (date.getMonth()+1) +'-'+ date.getDate() ) }

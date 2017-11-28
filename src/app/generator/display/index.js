@@ -63,7 +63,7 @@ class Display extends Component {
         return (
 
             <div className="Display">
-                <h3>{'\tData Final: '+ dataFinal.getDate()+'/'+(dataFinal.getMonth()+1)+'/'+dataFinal.getFullYear()+' '+dataFinal.getHours()+':'+dataFinal.getMinutes()+':'+dataFinal.getSeconds() }</h3>
+                <h3>{'\tFinal Date: '+ dataFinal.getDate()+'/'+(dataFinal.getMonth()+1)+'/'+dataFinal.getFullYear()+' '+dataFinal.getHours()+':'+dataFinal.getMinutes()+':'+dataFinal.getSeconds() }</h3>
                 <div className="countdown-timer">
                 <div style={wrapperStyle}>
                     <span style={style}>
